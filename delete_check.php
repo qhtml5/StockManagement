@@ -15,7 +15,7 @@
 			<form action="delete_result.php" method=post>
 			<table class="table_style">
 				<tr>
-					<th width=150>バーコード</th>
+					<th width=150>コード</th>
 					<th width=150>型番</th>
 					<th width=300>品名</th>
 					<th width=80>在庫</th>

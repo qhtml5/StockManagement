@@ -12,29 +12,128 @@
 			<p></br><a href="top.php">TOP</a>　　　　　<a href="new.php">新規登録</a>　　　　　<a href="edit.php">編集／削除</a></p>
 			</br>
 			<p>編集／削除</br></br>
-			<form>
-				<input type="checkbox" name="category" value="1" checked="checked">トナー
-				<input type="checkbox" name="category" value="2">パーツ
-				</br></br>
-				型番：<input type="text" name="serial">　　
-				バーコード：<input type="text" name="code">　　
-				品名：<input type="text" name="name">　　
-				<input type="submit" value="検索">
-			</form>
-			<table class="table_style">
-				<tr>
-					<th width=150>バーコード</th>
-					<th width=150>型番</th>
-					<th width=300>品名</th>
-					<th width=60>種類</th>
-					<th width=80>在庫</th>
-					<th width=180>最終操作時刻</th>
-					<th width=120>最終操作者</th>
-					<th width=60>編集</th>
-					<th width=60>削除</th>
-				</tr>
-
 <?php
+
+if(isset($_GET['category']))
+{
+	// 引継ぎパラメータが存在する
+	$code=$_GET['code'];
+	$serial=$_GET['serial'];
+	$name=$_GET['name'];
+	$category=$_GET['category'];
+
+	print('<form action="edit.php" method=get>');
+	if($category==1)
+	{
+		print('<input type="radio" name="category" value="1" checked="checked">トナー');
+		print('<input type="radio" name="category" value="2">パーツ');
+	}
+	else
+	{
+		print('<input type="radio" name="category" value="1">トナー');
+		print('<input type="radio" name="category" value="2" checked="checked">パーツ');
+	}
+	print('</br></br>');
+	print('コード：<input type="text" name="code" value="'.$code.'">　　');
+	print('型番：<input type="text" name="serial" value="'.$serial.'">　　');
+	print('品名：<input type="text" name="name" value="'.$name.'">　　');
+	print('<input type="submit" value="検索">');
+	print('</form>');
+
+	$sql = "select * from tbl_zaiko ";
+
+	if(!$serial=="")
+	{
+		$sql = $sql."where serial like '%".$serial."%' ";
+	
+		if(!$code=="")
+		{
+			$sql = $sql."and code like '%".$code."%' ";
+
+			if(!$name=="")
+			{
+				$sql = $sql."and name like '%".$name."%' and category='".$category."'";
+			}
+			else
+			{
+				$sql = $sql."and category='".$category."' ";
+			}
+
+		}
+		else
+		{
+			if(!$name=="")
+			{
+				$sql = $sql."where name like '%".$name."%' and category='".$category."'";
+			}
+			else
+			{
+				$sql = $sql."where category='".$category."' ";
+			}
+		}
+	}
+	else
+	{
+		if(!$code=="")
+		{
+			$sql = $sql."where code like '%".$code."%' ";
+
+			if(!$name=="")
+			{
+				$sql = $sql."and name like '%".$name."%' and category='".$category."'";
+			}
+			else
+			{
+				$sql = $sql."and category='".$category."' ";
+			}
+
+		}
+		else
+		{
+			if(!$name=="")
+			{
+				$sql = $sql."where name like '%".$name."%' and category='".$category."'";
+			}
+			else
+			{
+				$sql = $sql."where category='".$category."' ";
+			}
+		}
+	}
+
+}
+else
+{
+	// 引継ぎパラメータが存在しない
+	print('<form action="edit.php" method=get>');
+	print('<input type="radio" name="category" value="1" checked="checked">トナー');
+	print('<input type="radio" name="category" value="2">パーツ');
+	print('</br></br>');
+	print('コード：<input type="text" name="code">　　');
+	print('型番：<input type="text" name="serial">　　');
+	print('品名：<input type="text" name="name">　　');
+	print('<input type="submit" value="検索">');
+	print('</form>');
+
+	$sql = "select * from tbl_zaiko where category=1";
+
+}
+
+
+print('</br>');
+print('<table class="table_style">');
+print('<tr>');
+print('<th width=150>コード</th>');
+print('<th width=150>型番</th>');
+print('<th width=300>品名</th>');
+print('<th width=60>種類</th>');
+print('<th width=80>在庫</th>');
+print('<th width=180>最終操作時刻</th>');
+print('<th width=120>最終操作者</th>');
+print('<th width=60>編集</th>');
+print('<th width=60>削除</th>');
+print('</tr>');
+
 
 $dsn = 'mysql:dbname=db_zaikokanri;host=localhost';
 $user = 'root';
@@ -44,10 +143,7 @@ try{
 
 	$dbh = new PDO($dsn, $user, $password);
 
-	$sql = 'select * from tbl_zaiko where category=1';
-
 	foreach ($dbh->query($sql) as $row) {
-
 		print('<tr>');
 		print('<td>'.$row['code'].'</td>');
 		print('<td>'.$row['serial'].'</td>');
@@ -88,7 +184,7 @@ try{
 }
 
 $dbh = null;
-			
+
 ?>
 			</table></p>
 		</div>
