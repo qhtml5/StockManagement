@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>在庫管理システム</title>
+		<meta name="description" content="トナー、パーツの在庫管理をします。">
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<link href="style.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+		<div style="text-align:center">
+		<p><br/><a href="top.php">TOP</a>　　　　　<a href="new.php">新規登録</a>　　　　　<a href="edit.php">編集／削除</a></p>
+		<br/>
+		<p>現在の在庫状況<br/><br/>
+		<form action="top.php" method=get>
+			{if $category == 1}
+				<input type="radio" name="category" value="1" checked="checked">トナー
+				<input type="radio" name="category" value="2">パーツ
+			{else if $category == 2}
+				<input type="radio" name="category" value="1">トナー
+				<input type="radio" name="category" value="2" checked="checked">パーツ
+			{else}
+				<input type="radio" name="category" value="1" checked="checked">トナー
+				<input type="radio" name="category" value="2">パーツ
+			{/if}
+			<br/><br/>
+			コード：<input type="text" name="code" value={$code}>
+			型番：<input type="text" name="serial" value={$serial}>
+			品名：<input type="text" name="name" value={$name}>
+			<input type="submit" value="検索">
+		</form><br/>
+		<table class="table_style">
+			<tr>
+				<th width=150>コード</th>
+				<th width=150>型番</th>
+				<th width=300>品名</th>
+				<th width=60>種類</th>
+				<th width=80>在庫</th>
+				<th width=60>数量</th>
+				<th width=60>出庫</th>
+				<th width=60>入庫</th>
+				<th width=180>最終操作時刻</th>
+				<th width=120>最終操作者</th>
+			</tr>
+			{if (isset($stockdata))}
+			{foreach $stockdata as $value}
+			<tr>
+				<td>{$value['code']}</td>
+				<td>{$value['serial']}</td>
+				<td>{$value['name']}</td>
+				<td>{$value['category']}</td>
+				<td>{$value['num']}</td>
+				<td><input type="text" size=2></td>
+				<td><input type="submit" value="出庫"></td>
+				<td><input type="submit" value="入庫"></td>
+				<td>{$value['last_access']}</td>
+				<td>{$value['last_member']}</td>
+			</tr>
+			{/foreach}
+			{/if}
+		</div>
+	</body>
+</html>
