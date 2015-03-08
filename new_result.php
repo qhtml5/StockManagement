@@ -1,74 +1,38 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>在庫管理システム</title>
-		<meta name="description" content="トナー、パーツの在庫管理をします。">
-		<meta http-equiv="Content-Style-Type" content="text/css" />
-		<link href="style.css" rel="stylesheet" type="text/css" />
-	</head>
-	<body>
-		<div style="text-align:center">
-		<p></br><a href="top.php">TOP</a>　　　　　<a href="new.php">新規登録</a>　　　　　<a href="edit.php">編集／削除</a></p>
-		</br>
-		<p>新規登録（結果）</p></br>
-
 <?php
 
-	$code=$_POST['code'];
-	$serial=$_POST['serial'];
-	$name=$_POST['name'];
-	$num=$_POST['num'];
-	$category=$_POST['category'];
-	$last_access_datetime= new DateTime();
-	$last_access = $last_access_datetime->format('Y-m-d H:i:s');
-	$last_member="安部";
+// クラス読み込み
+require_once 'smarty/Smarty.class.php';
+require_once 'StockService.php';
 
-$dsn = 'mysql:dbname=db_zaikokanri;host=localhost';
-$user = 'root';
-$password = 'root';
+// Smartyの準備
+$smarty = new Smarty();
+$smarty->template_dir = 'templates/';
+$smarty->compile_dir  = 'templates_c/';
 
-try{
+// インスタンス
+$StockService = new StockService;
 
-	$dbh = new PDO($dsn, $user, $password);
+$code=$_POST['code'];
+$serial=$_POST['serial'];
+$name=$_POST['name'];
+$num=$_POST['num'];
+$category=$_POST['category'];
 
-	$sql = "insert into tbl_zaiko (code, 
-						 serial,
-						 name,
-						 category,
-						 num,
-						 last_access,
-						 last_member)
-			values ('".$code."','"
-					 .$serial."','"
-					 .$name."','"
-					 .$category."',"
-					 .$num.",'"
-					 .$last_access."','"
-					 .$last_member."')";
+$last_access_datetime= new DateTime();
+$last_access = $last_access_datetime->format('Y-m-d H:i:s');
+$last_member="安部";
 
-	$result = $dbh->query($sql);
-	
-	if(!$result)
-	{
-		print("登録失敗".$sql);
-	}
-	else
-	{
-		print("登録完了");
-	}
+$result = $StockService->insert($serial, $code, $name, $category, $num, $last_access, $last_member);
 
-}catch (PDOException $e){
-	print('Error:'.$e->getMessage());
-	die();
+if(isset($result))
+{
+	// 登録完了
+	$smarty->assign('resultMessage', "登録が完了しました。");
+} else {
+	// 登録失敗
+	$smarty->assign('resultMessage', "登録エラーです。やり直してください。");
 }
 
-$dbh = null;
+$smarty->display('new_result.html');
 
 ?>
-
-			</br></br>
-			<a href="new.php">続けて登録</a>　　　　　<a href="top.php">TOPへ戻る</a>
-		</div>
-	</body>
-</html>

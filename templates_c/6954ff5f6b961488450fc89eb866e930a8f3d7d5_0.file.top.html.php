@@ -1,7 +1,7 @@
-<?php /* Smarty version 3.1.22-dev/9, created on 2015-03-07 22:11:10
+<?php /* Smarty version 3.1.22-dev/9, created on 2015-03-08 14:54:54
          compiled from "templates/top.html" */ ?>
 <?php
-/*%%SmartyHeaderCode:1830654faf8ee111a66_35074705%%*/
+/*%%SmartyHeaderCode:288254fbe42ec24b84_33637943%%*/
 if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
@@ -9,11 +9,11 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '6954ff5f6b961488450fc89eb866e930a8f3d7d5' => 
     array (
       0 => 'templates/top.html',
-      1 => 1425733868,
+      1 => 1425780354,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '1830654faf8ee111a66_35074705',
+  'nocache_hash' => '288254fbe42ec24b84_33637943',
   'tpl_function' => 
   array (
   ),
@@ -28,14 +28,14 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => '3.1.22-dev/9',
-  'unifunc' => 'content_54faf8ee1a2306_02386403',
+  'unifunc' => 'content_54fbe42ec9dd12_96023734',
 ),false);
 /*/%%SmartyHeaderCode%%*/
-if ($_valid && !is_callable('content_54faf8ee1a2306_02386403')) {
-function content_54faf8ee1a2306_02386403 ($_smarty_tpl) {
+if ($_valid && !is_callable('content_54fbe42ec9dd12_96023734')) {
+function content_54fbe42ec9dd12_96023734 ($_smarty_tpl) {
 ?>
 <?php
-$_smarty_tpl->properties['nocache_hash'] = '1830654faf8ee111a66_35074705';
+$_smarty_tpl->properties['nocache_hash'] = '288254fbe42ec24b84_33637943';
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -48,7 +48,7 @@ $_smarty_tpl->properties['nocache_hash'] = '1830654faf8ee111a66_35074705';
 	</head>
 	<body>
 		<div style="text-align:center">
-		<p><br/><a href="top.php">TOP</a>　　　　　<a href="new.php">新規登録</a>　　　　　<a href="edit.php">編集／削除</a></p>
+		<p><br/><a href="top.php">TOP</a>　　　　　<a href="new_input.php">新規登録</a>　　　　　<a href="edit.php">編集／削除</a></p>
 		<br/>
 		<p>現在の在庫状況<br/><br/>
 		<form action="top.php" method=get>
@@ -120,6 +120,7 @@ $_smarty_tpl->tpl_vars['value'] = $foreachItemSav;
 }
 ?>
 			<?php }?>
+		</table>
 		</div>
 	</body>
 </html><?php }
