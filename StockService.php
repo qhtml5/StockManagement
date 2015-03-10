@@ -27,7 +27,7 @@ class StockService
 		}
 	}
 	
-	public function insert($serial, $code, $name, $category, $num, $last_access, $last_member)
+	public function insert($code, $serial, $name, $category, $num, $last_access, $last_member)
 	{
 		// DBコネクション取得
 		$dsn = 'mysql:dbname=db_stock;host=localhost';
@@ -37,9 +37,9 @@ class StockService
 		try
 		{
 			// SQL
-			$sql = "insert into tbl_stock (serial, code, name, category, num, last_access, last_member) 
-					values ('".$serial."',".
-							"'".$code."',".
+			$sql = "insert into tbl_stock (code, serial, name, category, num, last_access, last_member) 
+					values ('".$code."',".
+							"'".$serial."',".
 							"'".$name."',".
 							"'".$category."',".
 							$num.",".
@@ -50,6 +50,35 @@ class StockService
 			print($sql);
 			$result = $dbh->query($sql);
 
+			return $result;
+
+		} catch (Exception $e) {
+			// 例外
+		}
+	}
+
+	public function editUpdate ($code, $serial, $name, $category, $num, $last_access, $last_member)
+	{
+		// DBコネクション取得
+		$dsn = 'mysql:dbname=db_stock;host=localhost';
+		$user = 'root';
+		$password = 'root';
+		
+		try
+		{
+			// SQL
+			$sql = "update tbl_stock set serial='".$serial."',"
+									   ."name='".$name."',"
+									   ."category='".$category."',"
+									   ."num=".$num.","
+									   ."last_access='".$last_access."',"
+									   ."last_member='".$last_member."' "
+									   ."where code='".$code."'";
+
+			$dbh = new PDO($dsn, $user, $password);
+			print($sql);
+			$result = $dbh->query($sql);
+			
 			return $result;
 
 		} catch (Exception $e) {

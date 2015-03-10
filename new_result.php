@@ -22,7 +22,7 @@ $last_access_datetime= new DateTime();
 $last_access = $last_access_datetime->format('Y-m-d H:i:s');
 $last_member="安部";
 
-$result = $StockService->insert($serial, $code, $name, $category, $num, $last_access, $last_member);
+$result = $StockService->insert($code, $serial, $name, $category, $num, $last_access, $last_member);
 
 if(isset($result))
 {

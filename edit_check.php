@@ -1,58 +1,82 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>在庫管理システム</title>
-		<meta name="description" content="トナー、パーツの在庫管理をします。">
-		<meta http-equiv="Content-Style-Type" content="text/css" />
-		<link href="style.css" rel="stylesheet" type="text/css" />
-	</head>
-	<body>
-		<div style="text-align:center">
-		<p></br><a href="top.php">TOP</a>　　　　　<a href="new.php">新規登録</a>　　　　　<a href="edit.php">編集／削除</a></p>
-		</br>
-		<p>編集（確認）</p></br>下記の情報で編集します。</br>
-			<form action="edit_result.php" method=post>
-			<table class="table_style">
-				<tr>
-					<th width=150>コード</th>
-					<th width=150>型番</th>
-					<th width=300>品名</th>
-					<th width=80>在庫</th>
-					<th width=60>種類</th>
-				</tr>
 <?php
-	$code=$_POST['code'];
-	$serial=$_POST['serial'];
-	$name=$_POST['name'];
-	$num=$_POST['num'];
-	$category=$_POST['category'];
 
-	print("<tr>");
-	print("<td>".$code."</td>");
-	print("<td>".$serial."</td>");
-	print("<td>".$name."</td>");
-	print("<td>".$num."</td>");
-	if($category==1)
+// クラス読み込み
+require_once 'smarty/Smarty.class.php';
+require_once 'StockService.php';
+
+// Smartyの準備
+$smarty = new Smarty();
+$smarty->template_dir = 'templates/';
+$smarty->compile_dir  = 'templates_c/';
+
+// 変数定義
+$errorMessage="";
+
+// POSTパラメータ確認
+if(isset($_POST['category']))
+{
+	// 存在する
+	// パラメータをassign
+	$smarty->assign('category', $_POST['category']);
+
+	// データチェック
+	// 型番
+	if($_POST['serial']!="")
 	{
-		print("<td>トナー</td>");
-	}else
-	{
-		print("<td>パーツ</td>");
+		// 存在する
+		// パラメータをassign
+		$smarty->assign('serial', $_POST['serial']);
+	} else {
+		// 存在しない
+		// エラー処理
+		$errorMessage = $errorMessage."型番を入力してください<br/>";
 	}
-	print("</tr>");
-
-	print("</table></br>");
+	// 品名
+	if($_POST['name']!="")
+	{
+		// 存在する
+		// パラメータをassign
+		$smarty->assign('name', $_POST['name']);
+	} else {
+		// 存在しない
+		// エラー処理
+		$errorMessage = $errorMessage."品名を入力してください<br/>";
+	}
+	// 在庫
+	if($_POST['num']!="")
+	{
+		// 存在する
+		// パラメータをassign
+		$smarty->assign('num', $_POST['num']);
+	} else {
+		// 存在しない
+		// エラー処理
+		$errorMessage = $errorMessage."在庫を入力してください<br/>";
+	}
 	
-	print('<input type="hidden" name="code" value="'.$code.'">');
-	print('<input type="hidden" name="serial" value="'.$serial.'">');
-	print('<input type="hidden" name="name" value="'.$name.'">');
-	print('<input type="hidden" name="num" value="'.$num.'">');
-	print('<input type="hidden" name="category" value="'.$category.'">');
-?>
+	$smarty->assign('code', $_POST['code']);
 
-			<input type="submit" value="編集" >
-		</form>
-		</div>
-	</body>
-</html>
+	
+} else{
+	// POSTパラメータが存在しない
+}
+
+$smarty->assign('errorMessage', $errorMessage);
+
+// テンプレート表示
+if ($errorMessage=="")
+{
+	$smarty->display('edit_check.html');
+}
+else
+{
+	$smarty->assign('code', $_POST['code']);
+	$smarty->assign('serial', $_POST['serial']);
+	$smarty->assign('name', $_POST['name']);
+	$smarty->assign('num', $_POST['num']);
+	$smarty->assign('category', $_POST['category']);
+
+	$smarty->display('edit_input.html');
+}
+
+?>

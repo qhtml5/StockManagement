@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-	<head >
+	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>在庫管理システム</title>
 		<meta name="description" content="トナー、パーツの在庫管理をします。">
@@ -9,31 +9,30 @@
 	</head>
 	<body>
 		<div style="text-align:center">
-		<p><br/><a href="top.php">TOP</a>　　　　　<a href="new_input.php">新規登録</a>　　　　　<a href="edit.php">編集／削除</a></p>
-		<br/>
-		<p>新規登録情報入力<br/><br/>
-		下記の内容で登録します。よろしいですか？<br/><br/>
-		<table class="table_style">
-			<tr>
-				<th width=150>コード</th>
-				<th width=150>型番</th>
-				<th width=300>品名</th>
-				<th width=60>種類</th>
-				<th width=80>在庫</th>
-			</tr>
-			<tr>
-				<td>{$code}</td>
-				<td>{$serial}</td>
-				<td>{$name}</td>
-				{if ($category == 1)}
-					<td>トナー</td>
-				{else}
-					<td>パーツ</td>
-				{/if}
-				<td>{$num}</td>
-			</tr>
-		</table><br/>
-		<form action="new_input.php" method=post style="display:inline;">
+		<p></br><a href="top.php">TOP</a>　　　　　<a href="new_input.php">新規登録</a>　　　　　<a href="edit.php">編集／削除</a></p>
+		</br>
+		<p>編集（確認）</p></br>下記の情報で編集します。<br/><br/>
+			<table class="table_style">
+				<tr>
+					<th width=150>コード</th>
+					<th width=150>型番</th>
+					<th width=300>品名</th>
+					<th width=80>在庫</th>
+					<th width=60>種類</th>
+				</tr>
+				<tr>
+					<td>{$code}</td>
+					<td>{$serial}</td>
+					<td>{$name}</td>
+					<td>{$num}</td>
+					{if ($category == "1")}
+						<td>トナー</td>
+					{else}
+						<td>パーツ</td>
+					{/if}
+				</tr>
+			</table></br>
+		<form action="edit_input.php" method=post style="display:inline;">
 			<input type="hidden" name="code" value={$code}>
 			<input type="hidden" name="serial" value={$serial}>
 			<input type="hidden" name="name" value={$name}>
@@ -41,7 +40,7 @@
 			<input type="hidden" name="num" value={$num}>
 			<input type="submit" value="修正" >　　　
 		</form>
-		<form action="new_result.php" method=post style="display:inline;">
+		<form action="edit_result.php" method=post style="display:inline;">
 			<input type="hidden" name="code" value={$code}>
 			<input type="hidden" name="serial" value={$serial}>
 			<input type="hidden" name="name" value={$name}>
