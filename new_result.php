@@ -24,7 +24,7 @@ $last_member="安部";
 
 $result = $StockService->insert($code, $serial, $name, $category, $num, $last_access, $last_member);
 
-if(isset($result))
+if($result==1)
 {
 	// 登録完了
 	$smarty->assign('resultMessage', "登録が完了しました。");
