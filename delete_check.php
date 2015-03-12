@@ -1,58 +1,30 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>在庫管理システム</title>
-		<meta name="description" content="トナー、パーツの在庫管理をします。">
-		<meta http-equiv="Content-Style-Type" content="text/css" />
-		<link href="style.css" rel="stylesheet" type="text/css" />
-	</head>
-	<body>
-		<div style="text-align:center">
-		<p></br><a href="top.php">TOP</a>　　　　　<a href="new.php">新規登録</a>　　　　　<a href="edit.php">編集／削除</a></p>
-		</br>
-		<p>削除（確認）</p></br>下記の情報を削除します。</br>
-			<form action="delete_result.php" method=post>
-			<table class="table_style">
-				<tr>
-					<th width=150>コード</th>
-					<th width=150>型番</th>
-					<th width=300>品名</th>
-					<th width=80>在庫</th>
-					<th width=60>種類</th>
-				</tr>
 <?php
-	$code=$_POST['code'];
-	$serial=$_POST['serial'];
-	$name=$_POST['name'];
-	$num=$_POST['num'];
-	$category=$_POST['category'];
 
-	print("<tr>");
-	print("<td>".$code."</td>");
-	print("<td>".$serial."</td>");
-	print("<td>".$name."</td>");
-	print("<td>".$num."</td>");
-	if($category==1)
-	{
-		print("<td>トナー</td>");
-	}else
-	{
-		print("<td>パーツ</td>");
-	}
-	print("</tr>");
+// クラス読み込み
+require_once 'smarty/Smarty.class.php';
+require_once 'StockService.php';
 
-	print("</table></br>");
-	
-	print('<input type="hidden" name="code" value="'.$code.'">');
-	print('<input type="hidden" name="serial" value="'.$serial.'">');
-	print('<input type="hidden" name="name" value="'.$name.'">');
-	print('<input type="hidden" name="num" value="'.$num.'">');
-	print('<input type="hidden" name="category" value="'.$category.'">');
+// Smartyの準備
+$smarty = new Smarty();
+$smarty->template_dir = 'templates/';
+$smarty->compile_dir  = 'templates_c/';
+
+$code=$_POST['code'];
+$serial=$_POST['serial'];
+$name=$_POST['name'];
+$num=$_POST['num'];
+$category=$_POST['category'];
+$last_access=$_POST['last_access'];
+$last_member=$_POST['last_member'];
+
+$smarty->assign('code', $code);
+$smarty->assign('serial', $serial);
+$smarty->assign('name', $name);
+$smarty->assign('num', $num);
+$smarty->assign('category', $category);
+$smarty->assign('last_access', $last_access);
+$smarty->assign('last_member', $last_member);
+
+$smarty->display('delete_check.html');
+
 ?>
-
-			<input type="submit" value="削除" >
-		</form>
-		</div>
-	</body>
-</html>
