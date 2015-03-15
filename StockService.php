@@ -1,17 +1,17 @@
 <?php
 
-require_once 'StockConfig.php';
+require_once 'StockConstruct.php';
 
 class StockService
 {
 	public function select($code, $serial, $name, $category)
 	{
-		$StockConfig = new StockConfig;
+		$StockConstruct = new StockConstruct;
 
 		// DBコネクション取得
-		$dsn = $StockConfig::dsn;
-		$user = $StockConfig::user;
-		$password = $StockConfig::password;
+		$dsn = $StockConstruct::dsn;
+		$user = $StockConstruct::user;
+		$password = $StockConstruct::password;
 		
 		try
 		{
@@ -34,12 +34,12 @@ class StockService
 	
 	public function insert($code, $serial, $name, $category, $num, $last_access, $last_member)
 	{
-		$StockConfig = new StockConfig;
+		$StockConstruct = new StockConstruct;
 
 		// DBコネクション取得
-		$dsn = $StockConfig::dsn;
-		$user = $StockConfig::user;
-		$password = $StockConfig::password;
+		$dsn = $StockConstruct::dsn;
+		$user = $StockConstruct::user;
+		$password = $StockConstruct::password;
 
 		try
 		{
@@ -67,12 +67,12 @@ class StockService
 
 	public function editUpdate ($code, $serial, $name, $category, $num, $last_access, $last_member)
 	{
-		$StockConfig = new StockConfig;
+		$StockConstruct = new StockConstruct;
 
 		// DBコネクション取得
-		$dsn = $StockConfig::dsn;
-		$user = $StockConfig::user;
-		$password = $StockConfig::password;
+		$dsn = $StockConstruct::dsn;
+		$user = $StockConstruct::user;
+		$password = $StockConstruct::password;
 		
 		try
 		{
@@ -99,12 +99,12 @@ class StockService
 	
 	public function delete ($code)
 	{
-		$StockConfig = new StockConfig;
+		$StockConstruct = new StockConstruct;
 
 		// DBコネクション取得
-		$dsn = $StockConfig::dsn;
-		$user = $StockConfig::user;
-		$password = $StockConfig::password;
+		$dsn = $StockConstruct::dsn;
+		$user = $StockConstruct::user;
+		$password = $StockConstruct::password;
 		
 		try
 		{

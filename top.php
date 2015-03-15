@@ -5,6 +5,8 @@
 // クラスの読み込み
 require_once 'smarty/Smarty.class.php';
 require_once 'StockService.php';
+require_once 'StockUtility.php';
+require_once 'StockConstruct.php';
 
 // Smartyの準備
 $smarty = new Smarty();
@@ -12,65 +14,48 @@ $smarty->template_dir = 'templates/';
 $smarty->compile_dir  = 'templates_c/';
 
 // インスタンス
-$StockService = new StockService;
+$service = new StockService;
+$util = new StockUtility;
 
 // 変数定義
-$code="";
-$serial="";
-$name="";
-$category="";
+$code=$util->get_get_code();
+$serial=$util->get_get_serial();
+$name=$util->get_get_name();
+$category=$util->get_get_category();
 
-// GETパラメータの有無
-if(isset($_GET['category']))
+// データチェック
+if (isset($code) || isset($serial) || isset($name) || isset($category))
 {
-	// GETパラメータがある場合
 	// 取得したパラメータで検索を行う
-	$result = $StockService->select($_GET['code'], $_GET['serial'], $_GET['name'], $_GET['category']);
-	$code=$_GET['code'];
-	$serial=$_GET['serial'];
-	$name=$_GET['name'];
-	$category=$_GET['category'];
-}
-else
-{
-	// GETパラメータがない場合
+	$result = $service->select($code, $serial, $name, $category);
+
+} else {
+	// パラメータが欠けている場合は初期表示
 	// トナー在庫の検索を行う
-	$result = $StockService->select("", "", "", "1");
+	$result = $service->select(StockConstruct::emp, StockConstruct::emp, 
+								StockConstruct::emp, StockConstruct::category_toner);
 }
 
-// 配列用変数
-$i=0;
+$stockdata = $util->formatStockData($result);
 
-// 検索結果を配列に格納
-foreach($result as $value)
-{
-	$stockdata[$i]['code'] = $value['code'];
-	$stockdata[$i]['serial'] = $value['serial'];
-	$stockdata[$i]['name'] = $value['name'];
-	$stockdata[$i]['num'] = $value['num'];
-	$stockdata[$i]['category'] = $value['category'];
-	$stockdata[$i]['last_access'] = $value['last_access'];
-	$stockdata[$i]['last_member'] = $value['last_member'];
-	$i++;
-}
-
-// データの有無
 if(isset($stockdata))
 {
 	// 検索結果が存在する場合は結果をassign
-	$smarty->assign('stockdata', $stockdata);
+	$smarty->assign(StockConstruct::stockdata, $stockdata);
+
 } else {
 	// 検索結果が0件の場合はnullをassign
-	$smarty->assign('stockdata', null);
-}
+	$smarty->assign(StockConstruct::stockdata, null);
+	
+};
 
 // 検索条件入力値設定用assign
-$smarty->assign('code', $code);
-$smarty->assign('serial', $serial);
-$smarty->assign('name', $name);
-$smarty->assign('category', $category);
+$smarty->assign(StockConstruct::code, $code);
+$smarty->assign(StockConstruct::serial, $serial);
+$smarty->assign(StockConstruct::name, $name);
+$smarty->assign(StockConstruct::category, $category);
 
 // テンプレート表示
-$smarty->display('top.html');
+$smarty->display(StockConstruct::top_html);
 
 ?>

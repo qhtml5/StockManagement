@@ -50,9 +50,15 @@
 				<td>{$value['name']}</td>
 				<td>{$value['category']}</td>
 				<td>{$value['num']}</td>
-				<td><input type="text" size=2></td>
+				<td><form action="io_check.php" method=post style="display:inline;">
+					<input type="hidden" name="code" value={$value['code']}>
+					<input type="hidden" name="serial" value={$value['serial']}>
+					<input type="hidden" name="name" value={$value['name']}>
+					<input type="hidden" name="category" value={$value['category']}>
+					<input type="hidden" name="num" value={$value['num']}>
+					<input type="text" size=2 name="io_num"></td>
 				<td><input type="submit" value="出庫"></td>
-				<td><input type="submit" value="入庫"></td>
+				<td><input type="submit" value="入庫"></form></td>
 				<td>{$value['last_access']}</td>
 				<td>{$value['last_member']}</td>
 			</tr>
