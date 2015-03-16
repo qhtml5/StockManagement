@@ -96,7 +96,36 @@ class StockService
 			echo 'DBアクセスエラー：'.$e->getMessage();
 		}
 	}
-	
+
+	public function ioUpdate ($code, $num, $last_access, $last_member)
+	{
+		$StockConstruct = new StockConstruct;
+
+		// DBコネクション取得
+		$dsn = $StockConstruct::dsn;
+		$user = $StockConstruct::user;
+		$password = $StockConstruct::password;
+		
+		try
+		{
+			// SQL
+			$sql = "update tbl_stock set num='".$num."',"
+									   ."last_access='".$last_access."',"
+									   ."last_member='".$last_member."' "
+									   ."where code='".$code."'";
+
+			$dbh = new PDO($dsn, $user, $password);
+			print($sql);
+			$result = $dbh->exec($sql);
+			
+			return $result;
+
+		} catch (PDOException $e) {
+			// 例外
+			echo 'DBアクセスエラー：'.$e->getMessage();
+		}
+	}
+
 	public function delete ($code)
 	{
 		$StockConstruct = new StockConstruct;

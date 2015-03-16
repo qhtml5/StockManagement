@@ -12,6 +12,7 @@
 		<p><br/><a href="top.php">TOP</a>　　　　　<a href="new_input.php">新規登録</a>　　　　　<a href="edit.php">編集／削除</a></p>
 		<br/>
 		<p>現在の在庫状況<br/><br/>
+		<font color="red"><b>{$errorMessage}</b></font><br/>
 		<form action="top.php" method=get>
 			{if $category == 1}
 				<input type="radio" name="category" value="1" checked="checked">トナー
@@ -56,9 +57,9 @@
 					<input type="hidden" name="name" value={$value['name']}>
 					<input type="hidden" name="category" value={$value['category']}>
 					<input type="hidden" name="num" value={$value['num']}>
-					<input type="text" size=2 name="io_num"></td>
-				<td><input type="submit" value="出庫"></td>
-				<td><input type="submit" value="入庫"></form></td>
+					<input type="text" size=2 name="io_num" value={$io_num}></td>
+				<td><input type="submit" name="out_num" value="出庫"></td>
+				<td><input type="submit" name="in_num" value="入庫"></form></td>
 				<td>{$value['last_access']}</td>
 				<td>{$value['last_member']}</td>
 			</tr>

@@ -20,7 +20,7 @@ class StockConstruct{
 	const errorMessage = 'errorMessage';
 	const resultMessage = 'resultMessage';
 	const stockdata ='stockdata';
-
+	const io_num = 'io_num';
 	// •¶Žš—ñ
 	const emp = "";
 
