@@ -135,5 +135,24 @@ class StockUtility {
 			return null;
 		}
 	}
+
+	// tbl_userから取得したデータを配列に整形
+	public function formatUserData ($result) {
+		$i=0;
+		foreach($result as $value)
+		{
+			$userdata[$i]['username'] = $value['username'];
+			$i++;
+		}
+		// データ有無チェック
+		if(isset($userdata))
+		{
+			// 検索結果が存在する場合は結果をreturn
+			return $userdata;
+		} else {
+			// 検索結果が0件の場合はnullをreturn
+			return null;
+		}
+	}
 }
 ?>

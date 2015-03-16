@@ -8,7 +8,7 @@ class StockService
 	{
 		$StockConstruct = new StockConstruct;
 
-		// DBƒRƒlƒNƒVƒ‡ƒ“Žæ“¾
+		// DBã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³å–å¾—
 		$dsn = $StockConstruct::dsn;
 		$user = $StockConstruct::user;
 		$password = $StockConstruct::password;
@@ -27,8 +27,8 @@ class StockService
 			return $result;
 
 		} catch (PDOException $e) {
-			// —áŠO
-			echo 'DBƒAƒNƒZƒXƒGƒ‰[F'.$e->getMessage();
+			// ä¾‹å¤–
+			echo 'DBã‚¢ã‚¯ã‚»ã‚¹ã‚¨ãƒ©ãƒ¼ï¼š'.$e->getMessage();
 		}
 	}
 	
@@ -36,7 +36,7 @@ class StockService
 	{
 		$StockConstruct = new StockConstruct;
 
-		// DBƒRƒlƒNƒVƒ‡ƒ“Žæ“¾
+		// DBã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³å–å¾—
 		$dsn = $StockConstruct::dsn;
 		$user = $StockConstruct::user;
 		$password = $StockConstruct::password;
@@ -60,8 +60,8 @@ class StockService
 			return $result;
 
 		} catch (PDOException $e) {
-			// —áŠO
-			echo 'DBƒAƒNƒZƒXƒGƒ‰[F'.$e->getMessage();
+			// ä¾‹å¤–
+			echo 'DBã‚¢ã‚¯ã‚»ã‚¹ã‚¨ãƒ©ãƒ¼ï¼š'.$e->getMessage();
 		}
 	}
 
@@ -69,7 +69,7 @@ class StockService
 	{
 		$StockConstruct = new StockConstruct;
 
-		// DBƒRƒlƒNƒVƒ‡ƒ“Žæ“¾
+		// DBã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³å–å¾—
 		$dsn = $StockConstruct::dsn;
 		$user = $StockConstruct::user;
 		$password = $StockConstruct::password;
@@ -92,8 +92,8 @@ class StockService
 			return $result;
 
 		} catch (PDOException $e) {
-			// —áŠO
-			echo 'DBƒAƒNƒZƒXƒGƒ‰[F'.$e->getMessage();
+			// ä¾‹å¤–
+			echo 'DBã‚¢ã‚¯ã‚»ã‚¹ã‚¨ãƒ©ãƒ¼ï¼š'.$e->getMessage();
 		}
 	}
 
@@ -101,7 +101,7 @@ class StockService
 	{
 		$StockConstruct = new StockConstruct;
 
-		// DBƒRƒlƒNƒVƒ‡ƒ“Žæ“¾
+		// DBã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³å–å¾—
 		$dsn = $StockConstruct::dsn;
 		$user = $StockConstruct::user;
 		$password = $StockConstruct::password;
@@ -121,8 +121,8 @@ class StockService
 			return $result;
 
 		} catch (PDOException $e) {
-			// —áŠO
-			echo 'DBƒAƒNƒZƒXƒGƒ‰[F'.$e->getMessage();
+			// ä¾‹å¤–
+			echo 'DBã‚¢ã‚¯ã‚»ã‚¹ã‚¨ãƒ©ãƒ¼ï¼š'.$e->getMessage();
 		}
 	}
 
@@ -130,7 +130,7 @@ class StockService
 	{
 		$StockConstruct = new StockConstruct;
 
-		// DBƒRƒlƒNƒVƒ‡ƒ“Žæ“¾
+		// DBã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³å–å¾—
 		$dsn = $StockConstruct::dsn;
 		$user = $StockConstruct::user;
 		$password = $StockConstruct::password;
@@ -147,9 +147,62 @@ class StockService
 			return $result;
 			
 		} catch (PDOException $e) {
-			// —áŠO
-			echo 'DBƒAƒNƒZƒXƒGƒ‰[F'.$e->getMessage();
+			// ä¾‹å¤–
+			echo 'DBã‚¢ã‚¯ã‚»ã‚¹ã‚¨ãƒ©ãƒ¼ï¼š'.$e->getMessage();
+		}
+	}
+
+	public function userInsert($username)
+	{
+		$StockConstruct = new StockConstruct;
+
+		// DBã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³å–å¾—
+		$dsn = $StockConstruct::dsn;
+		$user = $StockConstruct::user;
+		$password = $StockConstruct::password;
+
+		try
+		{
+			// SQL
+			$sql = "insert into tbl_user (username) 
+					values ('".$username."')";
+
+			$dbh = new PDO($dsn, $user, $password);
+			print($sql);
+			$result = $dbh->exec($sql);
+
+			return $result;
+
+		} catch (PDOException $e) {
+			// ä¾‹å¤–
+			echo 'DBã‚¢ã‚¯ã‚»ã‚¹ã‚¨ãƒ©ãƒ¼ï¼š'.$e->getMessage();
+		}
+	}
+
+	public function userSelect()
+	{
+		$StockConstruct = new StockConstruct;
+
+		// DBã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³å–å¾—
+		$dsn = $StockConstruct::dsn;
+		$user = $StockConstruct::user;
+		$password = $StockConstruct::password;
+
+		try
+		{
+			// SQL
+			$sql = "select * from tbl_user";
+
+			$dbh = new PDO($dsn, $user, $password);
+			print($sql);
+			$result = $dbh->query($sql);
+			return $result;
+
+		} catch (PDOException $e) {
+			// ä¾‹å¤–
+			echo 'DBã‚¢ã‚¯ã‚»ã‚¹ã‚¨ãƒ©ãƒ¼ï¼š'.$e->getMessage();
 		}
 	}
 }
+
 ?>
